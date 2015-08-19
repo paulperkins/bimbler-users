@@ -235,7 +235,7 @@ var tableContainer;
 		
 		$content .= '	<thead>';
 		$content .= '	<tr class="replace-inputs">';
-		$content .= '		<th data-hide="phone">User ID</th>';
+		$content .= '		<th data-hide="phone">ID</th>';
 		$content .= '		<th>User Login</th>';
 		$content .= '		<th data-hide="phone">User Name</th>';
 		$content .= '		<th data-hide="phone,tablet">Nick Name</th>';
@@ -245,7 +245,7 @@ var tableContainer;
 		$content .= '		<th data-hide="phone,tablet">Login IP</th>';
 		$content .= '	</tr>';
 		$content .= '	<tr>';
-		$content .= '		<th>User ID</th>';
+		$content .= '		<th>ID</th>';
 		$content .= '		<th>User Login</th>';
 		$content .= '		<th data-hide="phone">User Name</th>';
 		$content .= '		<th data-hide="phone,tablet">Nick Name</th>';
