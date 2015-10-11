@@ -217,6 +217,8 @@ var tableContainer;
 	 */
 	function show_users($atts) {
 		
+		$date_time_str = 'Y-m-d H:i:s';
+		
 		//global $post;
 		
 /*		$a = shortcode_atts (array (
@@ -276,13 +278,15 @@ var tableContainer;
 		
 		//$content .= '<p>Users: ' . count($users) . '</p>';
 		
+		date_default_timezone_set('Australia/Brisbane');
+		
 		foreach ( $users as $user) {
 			$user_info   = get_userdata ($user->uid);
 			$username = $user_info->user_login;
 			$user_email = $user_info->user_email;
 			$user_person = $user_info->user_firstname . ' ' . $user_info->user_lastname;
 			//$user_person = $user_info->nicename;
-			$registered = $user->reg_date;
+			$registered = get_date_from_gmt ($user->reg_date, $date_time_str);
 			$avatar = get_avatar ($user->uid, $size='150');
 			$legacy = $this->get_meetup_id($user->uid);
 			
