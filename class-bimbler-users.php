@@ -63,6 +63,7 @@ class Bimbler_Users {
         	 
         	
         	add_shortcode( 'bimbler_show_users', array ($this, 'show_users'));
+        	add_shortcode( 'bimbler_user_list', array ($this, 'show_user_list'));
         	        	        	         	
 		} // End constructor.
 		
@@ -356,5 +357,88 @@ var tableContainer;
 		return $content;
 				
 	}
-					
+	
+		function show_user_list($atts) {
+		
+		$date_time_str = 'Y-m-d H:i:s';
+		
+		//global $post;
+		
+/*		$a = shortcode_atts (array (
+								'ahead' 	=> 7,
+								'send_mail' => 'Y',
+							), $atts);
+		
+		if (!isset ($a)) {
+			error_log ('send_reminder called with no interval set.');
+			return;
+		} */
+		
+		$content = '';
+		
+		$content .= '<table class="table table-bordered table-striped" id="table-2">';
+		
+		$content .= '	<thead>';
+		$content .= '	<tr>';
+		$content .= '		<th data-hide="phone">First Name</th>';
+		$content .= '		<th data-hide="phone">Last Name</th>';
+		$content .= '		<th>Email</th>';
+		$content .= '	</tr>';
+		$content .= '	</thead>';
+		$content .= '	<tbody>';
+		
+		$odd = true;
+		
+		if ( !is_super_admin() ){
+			$content = '<div class="bimbler-alert-box notice"><span>Notice: </span>You must be an admin user to view this page.</div>';
+		
+			return $content;
+		}
+		
+		
+		$users = $this->get_users();
+		
+		if (!isset ($users)) {
+			return "Error";
+		}
+		
+		date_default_timezone_set('Australia/Brisbane');
+		
+		foreach ( $users as $user) {
+			$user_info   = get_userdata ($user->uid);
+
+			$user_email = $user_info->user_email;
+				
+
+			$content .= '<tr class="';
+			if ($odd) {
+				$content .= ' odd';
+			} else {
+				$content .= ' even';
+			}
+
+			$content .= ' grade A">';
+			
+			$content .= '<td>' . $user_info->user_firstname .'</td>';
+			$content .= '<td>' . $user_info->user_lastname .'</td>';
+			$content .= '<td>' . $user_email . '</td>';
+				
+			$content .= '</tr>';
+
+			if ($odd) {
+				$odd = false;
+			} else {
+				$odd = true;
+			}
+		}
+		
+		$content .= '	</tbody>';
+		$content .= '</table>';
+		
+		$content .= $this->script;
+		$content .= $this->script_bot;
+		
+		return $content;
+				
+	}				
 } // End class
